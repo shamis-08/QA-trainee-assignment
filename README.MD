@@ -274,13 +274,19 @@ pytest -v
 
 Проект содержит Dockerfile и docker-compose.yml для удобного запуска тестов в контейнере.
 
-1. **Соберите образ Docker:**
+1. **Перейдем в папку второго задания:**
+```bash
+cd Task2.1/ 
+```
+
+
+2. **Соберите образ Docker:**
 
    ```bash
    docker compose build
    ```
 
-2. **Запустите тесты:**
+3. **Запустите тесты:**
 
    ```bash
    docker compose up --abort-on-container-exit
