@@ -1,0 +1,97 @@
+{
+  "test_get_item_by_id": [
+    {
+      "item_id": "9f3e1b5d-c91a-46a7-968d-c05582530dd4",
+      "expected_status": 200,
+      "description": "Valid existing item id"
+    },
+    {
+      "item_id": "non-existent-uuid",
+      "expected_status": 400,
+      "description": "Non-existent id"
+    },
+    {
+      "item_id": "abc",
+      "expected_status": 400,
+      "description": "Invalid id format"
+    },
+    {
+      "item_id": "",
+      "expected_status": 404,
+      "description": "Empty id value"
+    }
+  ],
+  "test_create_item": [
+    {
+      "payload": {
+        "sellerID": 918273645,
+        "name": "Item Name",
+        "price": 100,
+        "statistics": {
+          "contacts": 5,
+          "likes": 10,
+          "viewCount": 20
+        }
+      },
+      "expected_status": 200,
+      "description": "Valid item creation"
+    },
+    {
+      "payload": {
+        "sellerID": 918273645,
+        "name": "",
+        "price": 100,
+        "statistics": {
+          "contacts": 5,
+          "likes": 10,
+          "viewCount": 20
+        }
+      },
+      "expected_status": 400,
+      "description": "Empty item name"
+    },
+    {
+      "payload": {
+        "sellerID": 918273645,
+        "name": "Item Name",
+        "price": -50,
+        "statistics": {
+          "contacts": 5,
+          "likes": 10,
+          "viewCount": 20
+        }
+      },
+      "expected_status": 400,
+      "description": "Negative price"
+    }
+  ],
+  "test_get_items_by_seller": [
+    {
+      "seller_id": "918273645",
+      "expected_status": 200,
+      "description": "Valid seller id with items"
+    },
+    {
+      "seller_id": "non-numeric",
+      "expected_status": 400,
+      "description": "Invalid seller id format"
+    }
+  ],
+  "test_get_item_statistic": [
+    {
+      "item_id": "9f3e1b5d-c91a-46a7-968d-c05582530dd4",
+      "expected_status": 200,
+      "description": "Valid item id for statistic"
+    },
+    {
+      "item_id": "non-existent-uuid",
+      "expected_status": 400,
+      "description": "Non-existent item id for statistic"
+    },
+    {
+      "item_id": "abc",
+      "expected_status": 400,
+      "description": "Invalid id format for statistic"
+    }
+  ]
+}
