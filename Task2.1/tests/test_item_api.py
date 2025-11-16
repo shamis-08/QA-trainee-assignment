@@ -34,6 +34,22 @@ def test_create_item_from_json(api_client, item_case):
     assert response.status_code == expected_status, (
         f"{description}: expected status {expected_status}, got {response.status_code}"
     )
+    # Если запись успешно создана (обычно 201 или 200), проверяем GET
+    if expected_status in (200, 201):
+        # ⚠️ предполагаем, что item_id возвращается в response.json()
+        response_body = response.json()
+        created_id = response_body.get("id") or response_body.get("item_id")
+
+        assert created_id, f"POST succeeded but response did not contain item id: {response_body}"
+
+        # GET для валидации
+        get_response = item_api.get_item_by_id(created_id)
+        assert get_response.status_code == 200, (
+            f"Created item {created_id} not found via GET, status={get_response.status_code}"
+        )
+        assert get_response.json().get("id") == created_id, (
+            f"GET returned wrong item: expected id {created_id}, got {get_response.json()}"
+        )
 
 
 # Тесты для ручки GET /api/1/:sellerID/item (получение объявлений по sellerID)
